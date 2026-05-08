@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaterniTrack - Edit Item</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="inventory-add.css">
+</head>
+<body class="add-item-page">
+  <header class="top-nav" aria-label="Top navigation">
+    <a href="home.html" class="brand-wrap" style="text-decoration: none; cursor: pointer;">
+      <div class="brand-icon" aria-hidden="true">
+        <div class="brand-mark"></div>
+      </div>
+      <div>
+        <p class="brand-system-name">MaterniTrack</p>
+        <p class="brand-clinic-name">Real-Mendoza Maternity Clinic</p>
+      </div>
+    </a>
+
+    <div class="top-nav-right">
+      <span class="role-badge" data-role-badge="admin">ADMIN</span>
+      <span class="role-badge is-hidden" data-role-badge="staff">STAFF</span>
+      <div class="staff-profile" aria-label="Logged in user">
+        <div class="staff-avatar" aria-hidden="true">AD</div>
+        <span class="staff-name">Admin</span>
+      </div>
+      <button type="button" class="logout-btn" id="logoutBtn">Log out</button>
+    </div>
+  </header>
+
+  <main class="add-item-main">
+    <!-- Back button and header -->
+    <section class="form-header">
+      <a href="inventory.html" class="back-link">
+        <i class="bi bi-arrow-left" aria-hidden="true"></i>
+        Back to Inventory
+      </a>
+      <div>
+        <h1 class="form-title">Edit Item</h1>
+        <p class="form-subtitle">Update medical supply information</p>
+      </div>
+    </section>
+
+    <!-- Form -->
+    <section class="form-section">
+      <form id="itemForm" class="item-form">
+        <!-- Row 1: Item Name & Category -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="itemName">Item Name *</label>
+            <div class="input-wrap">
+              <i class="bi bi-box-seam" aria-hidden="true"></i>
+              <input type="text"
+                id="itemName"
+                class="form-input"
+                placeholder="e.g. Gauze Pads"
+                maxlength="100"
+                required>
+            </div>
+            <div class="form-error" id="itemNameError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="category">Category *</label>
+            <div class="input-wrap">
+              <i class="bi bi-tag" aria-hidden="true"></i>
+              <select id="category" class="form-select" required>
+                <option value="">Select category</option>
+                <option value="Medicine">Medicine</option>
+                <option value="Equipment">Equipment</option>
+                <option value="Supplies">Supplies</option>
+              </select>
+            </div>
+            <div class="form-error" id="categoryError"></div>
+          </div>
+        </div>
+
+        <!-- Row 2: Quantity & Unit -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="quantity">Quantity *</label>
+            <div class="input-wrap">
+              <i class="bi bi-stack" aria-hidden="true"></i>
+              <input type="number"
+                id="quantity"
+                class="form-input"
+                placeholder="e.g. 50"
+                min="0"
+                required>
+            </div>
+            <div class="form-error" id="quantityError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="unit">Unit *</label>
+            <div class="input-wrap">
+              <i class="bi bi-rulers" aria-hidden="true"></i>
+              <select id="unit" class="form-select" required>
+                <option value="">Select unit</option>
+                <option value="pcs">pcs (pieces)</option>
+                <option value="box">box</option>
+                <option value="vial">vial</option>
+                <option value="bag">bag</option>
+                <option value="pack">pack</option>
+                <option value="bottle">bottle</option>
+                <option value="set">set</option>
+                <option value="roll">roll</option>
+              </select>
+            </div>
+            <div class="form-error" id="unitError"></div>
+          </div>
+        </div>
+
+        <!-- Row 3: Reorder Level & Expiration Date -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="reorderLevel">Reorder Level (Minimum Stock) *</label>
+            <div class="input-wrap">
+              <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+              <input type="number"
+                id="reorderLevel"
+                class="form-input"
+                placeholder="e.g. 20"
+                min="0"
+                required>
+            </div>
+            <p class="form-hint">System will alert when stock falls below this number.</p>
+            <div class="form-error" id="reorderLevelError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="expirationDate">Expiration Date *</label>
+            <div class="input-wrap">
+              <i class="bi bi-calendar" aria-hidden="true"></i>
+              <input type="date"
+                id="expirationDate"
+                class="form-input"
+                required>
+            </div>
+            <div class="form-error" id="expirationDateError"></div>
+          </div>
+        </div>
+
+        <!-- Row 4: Supplier & Date Added -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="supplier">Supplier Name</label>
+            <div class="input-wrap">
+              <i class="bi bi-truck" aria-hidden="true"></i>
+              <input type="text"
+                id="supplier"
+                class="form-input"
+                placeholder="e.g. PhilMed Supplies Inc."
+                maxlength="100">
+            </div>
+            <div class="form-error" id="supplierError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="dateAdded">Date Added</label>
+            <div class="input-wrap">
+              <i class="bi bi-calendar" aria-hidden="true"></i>
+              <input type="date"
+                id="dateAdded"
+                class="form-input"
+                readonly>
+            </div>
+            <p class="form-hint">Original date item was added.</p>
+          </div>
+        </div>
+
+        <!-- Form Buttons -->
+        <div class="form-buttons">
+          <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+          <button type="submit" class="btn-save">Update Item</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Cancel Confirmation Modal -->
+  <div class="modal-overlay is-hidden" id="cancelModal" role="dialog" aria-labelledby="cancel-title" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-title" id="cancel-title">Discard Changes?</div>
+      <p class="modal-message">
+        Are you sure you want to leave without saving? Any changes will be lost.
+      </p>
+      <div class="modal-footer">
+        <button class="btn-continue" id="keepEditingBtn">Keep Editing</button>
+        <button class="btn-discard" id="discardBtn">Discard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global utilities and storage -->
+  <script src="storage-utils.js"></script>
+  
+  <!-- Feature-specific managers -->
+  <script src="role-manager.js"></script>
+  <script src="auth-manager.js"></script>
+  
+  <!-- Page-specific functionality -->
+  <script src="inventory-edit.js"></script>
+</body>
+</html>

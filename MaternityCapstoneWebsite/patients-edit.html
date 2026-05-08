@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaterniTrack - Edit Patient</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="patients.css">
+</head>
+<body class="patients-page">
+  <header class="top-nav">
+    <a href="home.html" class="brand-wrap top-nav-left" style="text-decoration: none; cursor: pointer;">
+      <div class="brand-icon" aria-hidden="true">
+        <div class="brand-mark"></div>
+      </div>
+      <div>
+        <p class="brand-system-name">MaterniTrack</p>
+        <p class="brand-clinic-name">Real-Mendoza Maternity Clinic</p>
+      </div>
+    </a>
+
+    <div class="top-nav-right">
+      <span class="role-badge role-badge-admin is-hidden" data-role-badge="admin">ADMIN</span>
+      <span class="role-badge role-badge-staff is-hidden" data-role-badge="staff">STAFF</span>
+
+      <div class="staff-profile" aria-label="Logged-in staff">
+        <div class="staff-avatar" aria-hidden="true">LM</div>
+        <span class="staff-name">Leyo Mendoza</span>
+      </div>
+      <button type="button" class="logout-btn" id="logoutBtn">Log out</button>
+    </div>
+  </header>
+
+  <main class="form-page">
+    <div class="form-header">
+      <h1 class="form-title">Edit Patient Record</h1>
+      <p class="form-subtitle">Update patient information</p>
+    </div>
+
+    <div id="formErrors" class="form-errors is-hidden" role="alert" aria-live="polite"></div>
+
+    <form id="editPatientForm" class="form-card" novalidate>
+      <div class="form-row">
+        <div class="form-field">
+          <label class="field-label" for="fullName">Full Name *</label>
+          <input id="fullName" name="fullName" class="field-input" type="text" required>
+        </div>
+        <div class="form-field">
+          <label class="field-label" for="age">Age *</label>
+          <input id="age" name="age" class="field-input" type="number" min="0" max="120" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label class="field-label" for="contact">Contact Number *</label>
+          <input id="contact" name="contact" class="field-input" type="tel" required>
+        </div>
+        <div class="form-field">
+          <label class="field-label" for="email">Email Address</label>
+          <input id="email" name="email" class="field-input" type="email">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field full-width">
+          <label class="field-label" for="address">Address</label>
+          <input id="address" name="address" class="field-input" type="text">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field full-width">
+          <label class="field-label" for="medicalHistory">Medical History</label>
+          <textarea id="medicalHistory" name="medicalHistory" class="field-textarea"></textarea>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field full-width">
+          <label class="field-label" for="allergies">Allergies</label>
+          <textarea id="allergies" name="allergies" class="field-textarea"></textarea>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label class="field-label" for="status">Status *</label>
+          <select id="status" name="status" class="field-input" required>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+    </form>
+
+    <div class="form-footer">
+      <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+      <button type="button" class="btn-submit" id="submitBtn">
+        <i class="bi bi-save" aria-hidden="true"></i>
+        Save Changes
+      </button>
+    </div>
+  </main>
+
+  <!-- Global utilities and storage -->
+  <script src="storage-utils.js"></script>
+  
+  <!-- Feature-specific managers -->
+  <script src="role-manager.js"></script>
+  <script src="auth-manager.js"></script>
+
+  <!-- Page-specific functionality -->
+  <script src="patients.js"></script>
+  <script src="patients-edit.js"></script>
+</body>
+</html>

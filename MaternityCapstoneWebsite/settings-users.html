@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaterniTrack - User Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="settings-users.css">
+</head>
+<body class="settings-page">
+  <div id="accessDenied" class="access-denied is-hidden" role="alert" aria-live="polite">
+    <div class="access-denied-card">
+      <div class="access-denied-icon" aria-hidden="true">
+        <i class="bi bi-lock-fill"></i>
+      </div>
+      <h1 class="access-denied-title">Access Denied</h1>
+      <p class="access-denied-message">
+        You do not have permission to access this page. Settings and User Management are restricted to Admin accounts only.
+        Please contact your clinic administrator.
+      </p>
+      <button type="button" class="btn-access" id="btnBackToDashboard">Go Back to Dashboard</button>
+    </div>
+  </div>
+
+  <header class="settings-top-nav" aria-label="Admin navbar">
+    <a href="home.html" class="brand-wrap" style="text-decoration: none; cursor: pointer;">
+      <div class="brand-icon" aria-hidden="true">
+        <div class="brand-mark"></div>
+      </div>
+      <div>
+        <p class="brand-system-name">MaterniTrack</p>
+        <p class="brand-clinic-name">Real-Mendoza Maternity Clinic</p>
+      </div>
+    </a>
+
+    <div class="top-nav-right">
+      <span class="role-badge role-badge-admin">ADMIN</span>
+      <div class="staff-profile" aria-label="Logged in admin">
+        <div class="staff-avatar" aria-hidden="true">AD</div>
+        <span class="staff-name">Admin</span>
+      </div>
+      <button type="button" class="logout-btn" id="settingsLogoutBtn">Log out</button>
+    </div>
+  </header>
+
+  <main class="settings-layout">
+    <aside class="settings-sidebar" aria-label="Settings sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-item sidebar-item--active" role="button" tabindex="0">
+          <span class="sidebar-item-left">
+            <span class="sidebar-icon" aria-hidden="true"><i class="bi bi-people-fill"></i></span>
+            <span class="sidebar-text">User Management</span>
+          </span>
+        </div>
+
+        <div class="sidebar-item" role="button" tabindex="0">
+          <span class="sidebar-item-left">
+            <span class="sidebar-icon" aria-hidden="true"><i class="bi bi-building"></i></span>
+            <span class="sidebar-text">Clinic Profile</span>
+          </span>
+        </div>
+
+        <div class="sidebar-item" role="button" tabindex="0">
+          <span class="sidebar-item-left">
+            <span class="sidebar-icon" aria-hidden="true"><i class="bi bi-bell"></i></span>
+            <span class="sidebar-text">Notifications</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="sidebar-divider" aria-hidden="true"></div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-item" role="button" tabindex="0">
+          <span class="sidebar-item-left">
+            <span class="sidebar-icon" aria-hidden="true"><i class="bi bi-clock-history"></i></span>
+            <span class="sidebar-text">Activity Logs</span>
+          </span>
+        </div>
+
+        <div class="sidebar-item" role="button" tabindex="0">
+          <span class="sidebar-item-left">
+            <span class="sidebar-icon" aria-hidden="true"><i class="bi bi-info-circle-fill"></i></span>
+            <span class="sidebar-text">About System</span>
+          </span>
+        </div>
+      </div>
+    </aside>
+
+    <section class="settings-main" aria-label="User management">
+      <header class="settings-header">
+        <div>
+          <h1 class="settings-title">User Management</h1>
+          <p class="settings-subtitle">Manage authorized staff accounts. Admin access only.</p>
+        </div>
+        <button type="button" class="btn-primary" id="btnAddStaff">Add Staff Account</button>
+      </header>
+
+      <div class="admin-warning" role="note" aria-label="Admin access notice">
+        <div class="admin-warning-icon" aria-hidden="true">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+        </div>
+        <p class="admin-warning-text">
+          Admin Access Only. Only the clinic administrator can add, edit, or remove staff accounts. Staff members not registered here will be denied access.
+        </p>
+      </div>
+
+      <section class="stats-row" aria-label="Staff account stats">
+        <article class="stat-card">
+          <span class="stat-icon stat-icon--green" aria-hidden="true"><i class="bi bi-person-check-fill"></i></span>
+          <p class="stat-number" id="statTotalStaff">0</p>
+          <p class="stat-label">Total staff accounts</p>
+        </article>
+
+        <article class="stat-card">
+          <span class="stat-icon stat-icon--amber" aria-hidden="true"><i class="bi bi-shield-lock-fill"></i></span>
+          <p class="stat-number" id="statAdminStaff">0</p>
+          <p class="stat-label">Admin accounts</p>
+        </article>
+
+        <article class="stat-card">
+          <span class="stat-icon stat-icon--blue" aria-hidden="true"><i class="bi bi-clipboard2-check-fill"></i></span>
+          <p class="stat-number" id="statRegularStaff">0</p>
+          <p class="stat-label">Staff accounts</p>
+        </article>
+      </section>
+
+      <section class="search-filters" aria-label="Search and filter staff">
+        <div class="search-field">
+          <label class="filter-label" for="staffSearchInput">Search staff</label>
+          <div class="search-input-wrapper">
+            <span class="search-icon" aria-hidden="true"><i class="bi bi-search"></i></span>
+            <input
+              id="staffSearchInput"
+              class="search-input"
+              type="text"
+              placeholder="Search staff by name or email..."
+              autocomplete="off"
+            >
+          </div>
+        </div>
+
+        <div class="filter-field">
+          <label class="filter-label" for="filterRole">Role filter</label>
+          <select id="filterRole" class="filter-select">
+            <option value="all">All Roles</option>
+            <option value="admin">Admin</option>
+            <option value="staff">Staff</option>
+          </select>
+        </div>
+
+        <div class="filter-field">
+          <label class="filter-label" for="filterStatus">Status filter</label>
+          <select id="filterStatus" class="filter-select">
+            <option value="all">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+      </section>
+
+      <div class="table-wrap" aria-label="Staff table">
+        <table class="staff-table">
+          <thead>
+            <tr>
+              <th>Staff Name</th>
+              <th>Email Address</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th style="width: 150px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="staffTableBody"></tbody>
+        </table>
+      </div>
+
+      <p class="settings-bottom-note">
+        Once added, this staff member can immediately log in using their registered username and password.
+      </p>
+    </section>
+  </main>
+
+  <!-- Change Password Modal -->
+  <div id="changePasswordModalOverlay" class="modal-overlay is-hidden" role="dialog" aria-modal="true" aria-label="Change password modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title">Change Staff Password</h2>
+          <p class="modal-subtitle">
+            Set a new password for this staff member.
+          </p>
+        </div>
+        <button type="button" class="modal-close" id="changePasswordCloseBtn" aria-label="Close modal">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="changePasswordForm" class="modal-form" novalidate>
+          <div class="modal-row">
+            <div class="form-field">
+              <label class="field-label">Staff Member</label>
+              <input type="text" class="field-input" id="changePasswordStaffName" readonly>
+            </div>
+          </div>
+
+          <div class="modal-row">
+            <div class="form-field">
+              <label class="field-label" for="changePasswordNewPassword">New Password</label>
+              <input id="changePasswordNewPassword" name="changePasswordNewPassword" class="field-input" type="password" placeholder="Enter new password" required>
+            </div>
+          </div>
+
+          <div class="modal-row">
+            <div class="form-field">
+              <label class="field-label" for="changePasswordConfirm">Confirm Password</label>
+              <input id="changePasswordConfirm" name="changePasswordConfirm" class="field-input" type="password" placeholder="Re-enter password" required>
+            </div>
+          </div>
+
+          <p id="changePasswordError" class="modal-error is-hidden" role="alert" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" id="changePasswordCancelBtn">Cancel</button>
+        <button type="button" class="btn-primary" id="changePasswordSaveBtn">Update Password</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Staff Modal -->
+  <div id="staffModalOverlay" class="modal-overlay is-hidden" role="dialog" aria-modal="true" aria-label="Staff modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title" id="modalTitle">Add New Staff Account</h2>
+          <p class="modal-subtitle" id="modalSubtitle">
+            Enter the staff member's details. They will log in using their registered username and password.
+          </p>
+        </div>
+        <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Close modal">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="staffModalForm" class="modal-form" novalidate>
+          <div class="modal-row">
+            <div class="form-field">
+              <label class="field-label" for="staffFullName">Full Name</label>
+              <input id="staffFullName" name="staffFullName" class="field-input" type="text" placeholder="e.g. Juan Santos" required>
+            </div>
+          </div>
+
+          <div class="modal-row">
+            <div class="form-field">
+              <label class="field-label" for="staffEmail">Email Address</label>
+              <input id="staffEmail" name="staffEmail" class="field-input" type="email" placeholder="e.g. juan.santos@gmail.com" required>
+              <p class="input-note">(Staff email for account registration)</p>
+            </div>
+          </div>
+
+          <div class="modal-row">
+            <div class="form-field">
+              <label class="field-label" for="staffRoleSelect">Assign Role</label>
+              <select id="staffRoleSelect" name="staffRoleSelect" class="field-input">
+                <option value="staff">Staff — Can manage appointments and inventory</option>
+                <option value="admin">Admin — Full access including user management</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="modal-row">
+            <div class="form-field">
+              <label class="field-label" for="staffStatusSelect">Status</label>
+              <select id="staffStatusSelect" name="staffStatusSelect" class="field-input">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="modal-row" id="passwordFieldRow">
+            <div class="form-field">
+              <label class="field-label" for="staffPassword">Initial Password</label>
+              <input id="staffPassword" name="staffPassword" class="field-input" type="password" placeholder="Enter initial password (min. 6 characters)" required>
+              <p class="input-note">(Required when adding new staff members)</p>
+            </div>
+          </div>
+
+          <p id="modalFormError" class="modal-error is-hidden" role="alert" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" id="modalCancelBtn">Cancel</button>
+        <button type="button" class="btn-primary" id="modalSaveBtn">Add Staff Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global utilities and storage -->
+  <script src="storage-utils.js"></script>
+  
+  <!-- Feature-specific managers -->
+  <script src="role-manager.js"></script>
+  <script src="auth-manager.js"></script>
+  
+  <!-- Page-specific functionality -->
+  <script src="settings-users.js?v=2"></script>
+</body>
+</html>
+
